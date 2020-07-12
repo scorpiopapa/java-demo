@@ -1,0 +1,64 @@
+buildscript {
+    repositories{
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+    }
+}
+
+
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building a CLI application.
+    id 'application'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
+dependencies {
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:28.2-jre'
+
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = 'edu.lee.App'
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+jar {
+    archivesBaseName = 'spi-demo'
+    archiveVersion = '0.0.1'
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": 'edu.lee.App'
+        )
+    }
+
+    // 打包依赖包
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
