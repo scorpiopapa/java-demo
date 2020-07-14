@@ -4,7 +4,9 @@ import edu.lee.service.IService;
 
 public class HelloService implements IService {
     @Override
-    public void hello(String text) {
-        System.out.println("hello " + text);
+    public String hello(String text) {
+        String result = "hello " + text;
+        System.out.println(result);
+        return result;
     }
 }
