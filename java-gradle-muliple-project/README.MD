@@ -4,4 +4,5 @@
 `gradlew build`
 
 * 构建指定模块  
-`gradlew lib-one:build`
+`gradlew lib-one:build`  
+`gradlew :lib-one:build`

@@ -5,6 +5,7 @@ plugins {
 
 group = 'edu.lee'
 version = '0.0.1'
+//jar.enabled = true
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.

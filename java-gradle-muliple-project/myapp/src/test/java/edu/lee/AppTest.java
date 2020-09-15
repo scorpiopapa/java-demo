@@ -10,5 +10,11 @@ class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+
+        LibraryOne one = new LibraryOne();
+        assertTrue(one.someLibraryMethod());
+
+        LibraryTwo two = new LibraryTwo();
+        assertTrue(two.someLibraryMethod());
     }
 }
