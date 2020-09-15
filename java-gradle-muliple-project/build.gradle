@@ -1,0 +1,23 @@
+buildscript {
+    repositories{
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+    }
+}
+
+allprojects {
+	repositories {
+		maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+	}
+}
+
+subprojects {
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+	}
+//	test {
+//		// Use junit platform for unit tests
+//		useJUnitPlatform()
+//	}
+//	sourceCompatibility = JavaVersion.VERSION_11
+//	targetCompatibility = JavaVersion.VERSION_11
+}
