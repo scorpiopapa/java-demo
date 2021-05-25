@@ -18,6 +18,7 @@ public class FunctionTest {
         Supplier<String> supplier2 = String::new;
 
         assertNotSame(supplier1.get(), supplier2.get());
+//        System.out.println("aaaaaaaaa");
     }
 
     @Test void testConsumer(){
