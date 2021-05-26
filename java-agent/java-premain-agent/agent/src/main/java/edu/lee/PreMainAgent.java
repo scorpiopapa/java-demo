@@ -3,7 +3,6 @@
  */
 package edu.lee;
 
-
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
@@ -13,13 +12,7 @@ public class PreMainAgent {
 
     public static void premain(String agentArgs, Instrumentation inst){
         System.out.println("agentArgs : " + agentArgs);
-        inst.addTransformer(new ClassFileTransformer(){
-            @Override
-            public byte[] transform(Module module, ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-                System.out.println("premain load Class     :" + className);
-                return ClassFileTransformer.super.transform(module, loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
-            }
-        }, true);
+        inst.addTransformer(TransformerFactory.createTransformer(agentArgs), true);
     }
 
 }
