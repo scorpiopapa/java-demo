@@ -1,4 +1,4 @@
-package edu.lee;
+package edu.lee.utils;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -14,7 +14,7 @@ public class MemoryClassLoader extends URLClassLoader {
     }
 
     @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
+    public Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] buf = classBytes.get(name);
         if (buf == null) {
             return super.findClass(name);

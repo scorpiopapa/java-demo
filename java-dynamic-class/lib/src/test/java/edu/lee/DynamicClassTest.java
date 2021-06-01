@@ -3,8 +3,14 @@
  */
 package edu.lee;
 
+import edu.lee.factory.ClassFactory;
+import edu.lee.factory.Strategy;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -12,14 +18,18 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DynamicClassTest {
-    @Test void testDynamicPojoBean() throws Exception {
+
+    @DisplayName("Test Dynamic PojoBean Compile")
+    @ParameterizedTest
+    @EnumSource(Strategy.class)
+    void testDynamicPojoBean(Strategy strategy) throws Exception {
         File javaFile = new File(DynamicClassTest.class.getClassLoader().getResource("./PojoBean.txt").toURI());
         String source = FileUtils.readFileToString(javaFile, "utf-8");
-        System.out.println("loaded java source =====================");
+        System.out.println("loaded java source for compile strategy " + strategy + " =============");
         System.out.println(source);
-        System.out.println("========================================");
+        System.out.println("======================================================================");
 
-        Object bean = ClassFactory.createClassObject("edu.lee.PojoBean", source);
+        Object bean = ClassFactory.createClassObject(strategy, "edu.lee.PojoBean", source);
         Method method = bean.getClass().getMethod("getId");
         int id = (int)method.invoke(bean);
 
@@ -29,12 +39,7 @@ class DynamicClassTest {
         assertAll(
                 () -> assertEquals(1, id),
                 () -> assertEquals("lee", name)
-
         );
     }
 
-//    @Test void test() throws Exception {
-//        DynamicClassTest dct = (DynamicClassTest)Class.forName("edu.lee.DynamicClassTest").getDeclaredConstructor().newInstance();
-//        System.out.println(dct.toString());
-//    }
 }

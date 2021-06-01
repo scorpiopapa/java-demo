@@ -1,4 +1,4 @@
-package edu.lee;
+package edu.lee.utils;
 
 import javax.tools.*;
 import java.io.*;
@@ -12,7 +12,7 @@ public class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaFileMan
 
     final Map<String, List<JavaFileObject>> classObjectPackageMap = new HashMap<>();
 
-    MemoryJavaFileManager(JavaFileManager fileManager) {
+    public MemoryJavaFileManager(JavaFileManager fileManager) {
         super(fileManager);
     }
 
@@ -73,7 +73,7 @@ public class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaFileMan
         }
     }
 
-    JavaFileObject makeStringSource(String className, final String code) {
+    public JavaFileObject makeStringSource(String className, final String code) {
         String classPath = className.replace('.', '/') + JavaFileObject.Kind.SOURCE.extension;
 
         return new SimpleJavaFileObject(URI.create("string:///" + classPath), JavaFileObject.Kind.SOURCE) {
